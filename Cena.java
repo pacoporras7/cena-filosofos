@@ -1,6 +1,6 @@
 package ultima_cena;
 
-import java.util.Scanner;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -110,35 +110,11 @@ public class Cena {
 
     // ---------- Programa principal ----------
     public static void main(String[] args) throws Exception {
-        if (args.length > 0) {                       // modo clásico: con argumentos
-            simular(args[0],
-                    args.length > 1 ? Integer.parseInt(args[1]) : 5,
-                    args.length > 2 ? Integer.parseInt(args[2]) : 10,
-                    args.length > 3 ? Integer.parseInt(args[3]) : 100,
-                    args.length > 4 ? Integer.parseInt(args[4]) : 100);
-            return;
-        }
-        String[] modos = {"sin-control", "correcto", "deadlock", "orden", "camarero"};
-        Scanner sc = new Scanner(System.in);
-        while (true) {                               // menú: se puede repetir las demos
-            System.out.println("\n=========== MENÚ ===========");
-            System.out.println("1 sin-control   (el fallo)");
-            System.out.println("2 correcto      (arreglado)");
-            System.out.println("3 deadlock      (bloqueo)");
-            System.out.println("4 orden         (solución 1)");
-            System.out.println("5 camarero      (solución 2)");
-            System.out.println("0 salir");
-            System.out.print("Elige: ");
-            if (!sc.hasNextLine()) return;
-            String op = sc.nextLine().trim();
-            if (op.equals("0")) return;
-            if (op.matches("[1-5]")) simular(modos[Integer.parseInt(op) - 1], 5, 10, 100, 100);
-        }
-    }
-
-    static void simular(String modo, int n, int segundos, int tPensar, int tComer) throws Exception {
-        conflictos.set(0);
-        System.out.println("\n>>>>> MODO: " + modo + " <<<<<");
+        String modo = args.length > 0 ? args[0] : "correcto";
+        int n = args.length > 1 ? Integer.parseInt(args[1]) : 5;
+        int segundos = args.length > 2 ? Integer.parseInt(args[2]) : 10;
+        int tPensar = args.length > 3 ? Integer.parseInt(args[3]) : 100;
+        int tComer = args.length > 4 ? Integer.parseInt(args[4]) : 100;
         int pausa = (modo.equals("correcto") || modo.equals("sin-control")) ? 0 : 100;
 
         Tenedor[] tenedores = new Tenedor[n];
